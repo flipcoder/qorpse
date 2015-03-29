@@ -1,0 +1,43 @@
+{
+    "pistol": {
+        "ammo-type": "pistol bullets",
+        "gfx": "bullet",
+        "ammo": 25,
+        "in-clip": 5,
+        "clip-capacity": 5,
+        "chamber": 1,
+        "range": 256.0,
+        "fire-speed": 5.0,
+        "reload-speed": 3.0,
+        "bullet-speed": 512.0,
+        "accuracy": 1.0
+    },
+    "shotgun": {
+        "ammo-type": "shells",
+        "gfx": "bullet",
+        "ammo": 48,
+        "in-clip": 8,
+        "clip-capacity": 8,
+        "chamber": 4,
+        "range": 256.0,
+        "fire-speed": 3.0,
+        "reload-speed": 3.0,
+        "bullet-speed": 512.0,
+        "accuracy": 0.5
+    },
+    "uzis": {
+        "ammo-type": "uzi rounds",
+        "gfx": "bullet",
+        "ammo": 128,
+        "in-clip": 24,
+        "clip-capacity":24,
+        "chamber": 1,
+        "range": 256.0,
+        "fire-speed": 10.0,
+        "reload-speed": 1.0,
+        "bullet-speed": 512.0,
+        "accuracy": 0.95,
+        "flags": ["dual"]
+    }
+    
+}

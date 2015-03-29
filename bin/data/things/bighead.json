@@ -1,0 +1,16 @@
+{
+    "size" : [ 32, 32 ],
+    "tile-size" : [ 32, 32 ],
+    "origin" : [ 0.5, 0.75 ],
+    "mask" : [ 0.25, 0.5, 0.875, 1.0 ],
+    "animation" : {
+        "speed" : 10.0,
+        "frames" : {
+            "down": [0,1],
+            "up": [4],
+            "left": [2,3],
+            "right": ["hflip",2,3],
+            "death": ["once", 4,5,6]
+        }
+    }
+}

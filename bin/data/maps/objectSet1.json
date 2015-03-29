@@ -1,0 +1,28 @@
+{
+    "6,5": {
+        "breakable": ""
+    },
+    "6,6": {
+        "breakable": ""
+    },
+    "7,5": {
+        "breakable": "",
+        "explode": ""
+    },
+    "7,6": {
+        "breakable": "",
+        "explode": ""
+    },
+    "8,5": {
+        "name": "lever"
+    },
+    "8,6": {
+        "name": "lever"
+    },
+    "12,4": {
+        "breakable": ""
+    },
+    "13,5": {
+        "breakable": ""
+    }
+}

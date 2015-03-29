@@ -1,0 +1,92 @@
+{
+	"0,0": {
+		"name": "player_start"
+	},
+	"0,1": {
+		"name": "medkit"
+	},
+    "0,5": {
+        "name": "scarecrow"
+    },
+    "0,6": {
+        "name": "bernie"
+    },
+	"0,7": {
+		"name": "fetus_maximus"
+	},
+	"1,2": {
+		"name": "player_start_2"
+	},
+	"1,2":{
+		"name": "tomb"
+	},
+	"1,5": {
+		"name": "gorecrow"
+	},
+	"1,6": {
+	    "name": "zombie"
+	},
+	"1,7": {
+		"name": "ghost"
+	},
+	"2,3": {
+		"name": "comic"
+	},
+	"2,6": {
+		"name": "grampire"
+	},
+	"2,7": {
+		"name": "hooded_priest"
+	},
+	"3,0": {
+		"name": "random_weapon_spawn"
+	},
+	"3,6": {
+		"name": "mask_kid"
+	},
+	"3,7": {
+		"name": "raven"
+	},
+	"4,0": {
+		"name": "script_trigger"
+	},
+	"4,6": {
+		"name": "severed_head"
+	},
+	"4,7": {
+		"name": "bighead"
+	},
+	"5,6": {
+		"name": "skeleton"
+	},
+	"5,7": {
+		"name": "meatfly"
+	},
+	"6,0": {
+		"name": "key"
+	},
+	"6,1": {
+		"name": "lock"
+	},
+	"7,0": {
+		"name": "rifle"
+	},
+	"7,1": {
+		"name": "grenade_launcher"
+	},
+	"7,2": {
+		"name": "flamethrower"
+	},
+	"7,3": {
+		"name": "shotgun"
+	},
+	"7,4": {
+		"name": "bazooka"
+	},
+	"7,5": {
+		"name": "uzis"
+	},
+	"7,6": {
+		"name": "minigun"
+	}
+}
