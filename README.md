@@ -1,7 +1,7 @@
 Qorpse
 ======
 
-A horror-themed retro shooter.
+Retro horror shooter written in C++11.
 
 [![Video 1](http://img.youtube.com/vi/5Fyw-sdIT_8/0.jpg)](http://www.youtube.com/watch?v=5Fyw-sdIT_8)
 
