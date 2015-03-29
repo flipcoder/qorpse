@@ -1,0 +1,12 @@
+{
+   "audio" : {
+      "music-volume" : 100,
+      "sound-volume" : 100,
+      "volume" : 100
+   },
+   "video" : {
+      "resolution" : "1920x1080",
+      "vsync" : false,
+      "windowed" : false
+   }
+}

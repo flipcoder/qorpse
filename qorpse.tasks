@@ -1,0 +1,14 @@
+[ ] Qor: Canvas draw optimizations
+[.] parallax view layers
+[.] BUG: transparency blend options don't work (?)
+[.] block walking outside the map
+[.] confine camera to map
+[?] would be nice to have access for resources to have access to config schema for value clamping
+    # isn't there a better way to do this? don't remember what i was thinking when i wrote this ^
+    # just add a validation function to meta?
+    # access to value range allows visual progress bars, etc. instead of just validity test
+    # they DO have access, schema is stored inside resource cache
+[|] keys, locked doors
+    [x] keys and inventory
+    [?] BUG Thing::LOCK collision still not working
+[ ] level win conditions

@@ -1,0 +1,26 @@
+{
+    "name": "Player",
+    "actor": "grampire",
+    "input": {
+        "binds": {
+            "left": "left",
+            "right": "right",
+            "up": "up",
+            "down": "down",
+            "z": [
+                "shoot",
+                "select"
+            ],
+            "left shift": "sprint",
+            "x": "strafe",
+            "v": "reload",
+            "c": [
+                "next_weapon",
+                "back"
+            ],
+            "d": "previous_weapon",
+            "a": "action",
+            "escape": "escape"
+        }
+    }
+}

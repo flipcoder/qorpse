@@ -1,3 +1,15 @@
+bin/qorpse
+bin/qorpse_dist
+bin/*.log
+obj/
+src/kit
+src/Qor
+src/shaders
+src/scripts
+__pycache__/
+*.make
+Makefile
+
 # Compiled Object files
 *.slo
 *.lo
