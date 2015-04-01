@@ -8,21 +8,9 @@
         ]
     },
 
-    "dependencies": {
+    "required": {
         "flipcoder/qor": {
             "link": "Qor"
-        },
-        "flipcoder/kit": {
-            "link": "kit",
-            "modules": [
-                "kit.h",
-                "args",
-                "factory",
-                "fs",
-                "log",
-                "meta"
-            ]
-        },
-        "cpp-netlib": "*"
+        }
     }
 }
