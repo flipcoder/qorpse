@@ -62,6 +62,8 @@ class MenuState:
             m_pCamera = std::dynamic_pointer_cast<Camera>(camera);
         }
         
+        void init_controls_menu();
+        
     private:
         
         Qor* m_pQor = nullptr;
@@ -97,6 +99,8 @@ class MenuState:
         std::shared_ptr<std::string> m_pVolumeText;
         std::shared_ptr<std::string> m_pSoundText;
         std::shared_ptr<std::string> m_pMusicText;
+        
+        std::map<std::string, std::vector<std::string>> m_Binds;
 };
 
 #endif

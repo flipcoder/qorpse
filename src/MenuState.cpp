@@ -246,7 +246,7 @@ void MenuState :: enter()
         m_MenuContext.push(&m_ControlsMenu);
     });
     m_OptionsMenu.options().emplace_back(
-        "Back", 
+        "Back",
         [this]{
             m_pQor->save_settings();
             m_MenuContext.pop();
@@ -255,6 +255,8 @@ void MenuState :: enter()
         string(), // no desc
         Menu::Option::BACK
     );
+
+    init_controls_menu();
 
     m_MenuContext.clear(&m_MainMenu);
     m_pRoot->add(m_pMenuGUI);
@@ -302,6 +304,52 @@ void MenuState :: enter()
 MenuState :: ~MenuState()
 {
     m_pPipeline->partitioner()->clear();
+}
+
+void MenuState :: init_controls_menu()
+{
+    shared_ptr<Meta> binds;
+    TRY(binds = m_pQor->session()->profile(0)->config()->
+        meta("input")->meta("binds")
+    );
+
+    
+    if(binds)
+    {
+        for(auto&& bind: *binds)
+        {
+            try{
+                // individual action -> key
+                m_Binds[bind.as<string>()].push_back(bind.key);
+            }catch(const boost::bad_any_cast&){
+                // many actions -> one key
+                auto bind_list = bind.as<shared_ptr<Meta>>();
+                for(auto&& key: *bind_list)
+                    m_Binds[key.as<string>()].push_back(bind.key);
+            }
+        }
+
+        // TODO: add empty binds for buttons not found
+        
+        for(auto&& bind: m_Binds)
+            m_ControlsMenu.options().emplace_back(
+                bind.first + ": " + boost::algorithm::join(bind.second, ", "),
+                [this]{
+                    
+                }
+            );   
+    }
+
+    m_ControlsMenu.options().emplace_back(
+        "Back", 
+        [this]{
+            m_pQor->save_settings();
+            m_MenuContext.pop();
+        },
+        std::function<bool(int)>(), // no adjust
+        string(), // no desc
+        Menu::Option::BACK
+    );
 }
 
 void MenuState :: logic(Freq::Time t)
