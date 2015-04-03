@@ -36,7 +36,7 @@ MenuState :: MenuState(
         m_pCanvas.get(),
         m_pQor->resources(),
         "Press Start",
-        engine->window()->size().y / 25.0f,
+        engine->window()->size().y / 30.0f,
         &m_Fade
     ))
 {
@@ -333,9 +333,10 @@ void MenuState :: init_controls_menu()
         
         for(auto&& bind: m_Binds)
             m_ControlsMenu.options().emplace_back(
-                bind.first + ": " + boost::algorithm::join(bind.second, ", "),
+                boost::to_upper_copy(bind.first) + ": " +
+                    boost::algorithm::join(bind.second, ", "),
                 [this]{
-                    
+                    m_pMenuGUI->hide();
                 }
             );   
     }
