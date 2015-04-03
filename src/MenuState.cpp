@@ -37,7 +37,8 @@ MenuState :: MenuState(
         m_pQor->resources(),
         "Press Start",
         engine->window()->size().y / 30.0f,
-        &m_Fade
+        &m_Fade,
+        7
     ))
 {
 }
@@ -313,7 +314,6 @@ void MenuState :: init_controls_menu()
         meta("input")->meta("binds")
     );
 
-    
     if(binds)
     {
         for(auto&& bind: *binds)
