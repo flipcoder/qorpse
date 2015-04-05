@@ -25,7 +25,6 @@ Character :: Character(
     for(auto&& e: *cfg)
     {
         auto wpn = e.as<shared_ptr<Meta>>();
-        LOG("1");
         m_Weapons.emplace_back(
             e.key,
             wpn->at<string>("ammo-type"),

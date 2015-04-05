@@ -92,8 +92,8 @@ void Thing :: init_thing()
         // adding a sprite will spawn its center on 0,0...
         // so we offset
         move(glm::vec3(
-            0.5f * m_pSprite->size().x,
-            0.5f * m_pSprite->size().y,
+            m_pSprite->origin().x * m_pSprite->size().x,
+            m_pSprite->origin().y  * m_pSprite->size().y,
             0.0f
         ));
         //m_pPlaceholder->detach(); // don't want to invalidate iterator
@@ -308,7 +308,25 @@ void Thing :: cb_to_static(Node* thing_node, Node* static_node)
     auto thing = find_thing(thing_node);
     assert(thing);
     if(thing->solid() || thing->is_monster())
+    {
+        glm::vec3 pos_before = thing->position(Space::WORLD);
         thing->world()->cb_to_static(thing_node, static_node, thing.get());
+        glm::vec3 pos_after = thing->position(Space::WORLD);
+        if(thing->velocity() != glm::vec3(0.0f)){
+            glm::vec3 vel = thing->velocity();
+            if(pos_after.x != pos_before.x){
+                vel.x = -vel.x;
+                thing->velocity(vel);
+                thing->orient(vel);
+            }
+            if(pos_after.y != pos_before.y){
+                vel.y = -vel.y;
+                thing->velocity(vel);
+                thing->orient(vel);
+            }
+            
+        }
+    }
 }
 
 std::shared_ptr<Thing> Thing :: find_thing(Node* n)

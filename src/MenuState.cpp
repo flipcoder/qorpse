@@ -332,13 +332,21 @@ void MenuState :: init_controls_menu()
         // TODO: add empty binds for buttons not found
         
         for(auto&& bind: m_Binds)
+        {
+            string action = bind.first;
+            vector<string> keys = bind.second;
+            auto text = make_shared<string>(
+                boost::to_upper_copy(action) + ": " +
+                boost::algorithm::join(keys, ", ")
+            );
             m_ControlsMenu.options().emplace_back(
-                boost::to_upper_copy(bind.first) + ": " +
-                    boost::algorithm::join(bind.second, ", "),
-                [this]{
-                    m_pMenuGUI->hide();
+                text,
+                [this, action, text]{
+                    *text = action + ": ...";
+                    m_pMenuGUI->visible(false);
                 }
-            );   
+            );
+        }
     }
 
     m_ControlsMenu.options().emplace_back(
