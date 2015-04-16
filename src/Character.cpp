@@ -9,11 +9,12 @@ Character :: Character(
     Cache<Resource, std::string>* resources,
     glm::vec3 pos = glm::vec3(0.0f)
 ):
+    Sprite(fn, resources, profile->config()->at<string>("actor"), pos),
     m_HP(100),
     m_MaxHP(100),
     m_Armor(0),
     m_MaxArmor(0),
-    Sprite(fn, resources, profile->config()->at<string>("actor"), pos),
+    m_Skin(profile->config()->at<string>("actor")),
     m_pSession(session),
     m_pProfile(profile),
     //m_pController(profile->controller().get()),

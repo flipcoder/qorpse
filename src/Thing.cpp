@@ -93,7 +93,7 @@ void Thing :: init_thing()
         // so we offset
         move(glm::vec3(
             m_pSprite->origin().x * m_pSprite->size().x,
-            m_pSprite->origin().y  * m_pSprite->size().y,
+            m_pSprite->origin().y * m_pSprite->size().y,
             0.0f
         ));
         //m_pPlaceholder->detach(); // don't want to invalidate iterator

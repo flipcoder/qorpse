@@ -162,6 +162,7 @@ class Character:
         std::vector<std::string> m_Items;
         kit::reactive<int> m_Weapon = 0;
         
+        std::string m_Skin;
         Session* m_pSession = nullptr;
         Profile* m_pProfile = nullptr;
         Controller* m_pController = nullptr;

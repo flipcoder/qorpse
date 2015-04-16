@@ -2,7 +2,7 @@
     "type" : "sprite",
     "size" : [ 16, 16 ],
     "tile-size" : [ 16, 16 ],
-    "origin" : [ 8, 12 ],
+    "origin" : [ 0.5, 0.75 ],
     "mask" : [ 0.25, 0.5, 0.75, 1.0 ],
     "animation" : {
         "speed" : 10.0,
