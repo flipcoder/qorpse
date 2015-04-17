@@ -15,7 +15,12 @@ World :: World(
     m_pPartitioner(partitioner)
 {
     //m_pMap = m_pQor->make<TileMap>("modern.tmx");
-    m_pMap = m_pQor->make<TileMap>("theGraveyard.tmx");
+    // load map names
+    auto cfg = make_shared<Meta>(m_pResources->transform("maps.json"));
+    
+    // load first map
+    m_pMap = m_pQor->make<TileMap>(cfg->meta("maps")->at<string>(0) + ".tmx");
+    
     //m_pMap = m_pQor->make<TileMap>("test.tmx");
     if(m_pMap)
     {

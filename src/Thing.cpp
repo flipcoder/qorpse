@@ -129,20 +129,7 @@ void Thing :: orient(glm::vec3 vec)
 
 void Thing :: sound(const std::string& fn)
 {
-    shared_ptr<Sound> snd;
-    try{
-        snd = make_shared<Sound>(fn, m_pResources);
-    }catch(...){
-        WARNINGf("missing sound: %s", fn);
-        return; // TEMP: ignore missing sounds
-    }
-    add(snd);
-    snd->play();
-    auto sndptr = snd.get();
-    snd->on_tick.connect([sndptr](Freq::Time t){
-        if(not sndptr->source()->playing())
-            sndptr->detach();
-    });
+    Sound::play(this, fn, m_pResources);
 }
 
 void Thing :: chase(Node* node)
@@ -185,10 +172,10 @@ void Thing :: setup_player(const std::shared_ptr<Character>& player)
             function<void(Node*,Node*)>(),
             function<void(Node*,Node*)>(),
             [this,playerptr](Node* a, Node* b){ // on enter
-                if(not m_Dead && not playerptr->dead())
+                if(not playerptr->dead())
                 {
                     playerptr->damage(25);
-                    sound("hurt.wav");
+                    sound(playerptr->skin() + "-hurt.wav");
                     kill();
                 }
             }

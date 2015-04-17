@@ -59,6 +59,7 @@ void QorpseState :: preload()
     m_pPlayer->on_death([this](const bool& b){
         m_pMusic->detach();
         m_pMusic = m_pQor->make<Sound>("rust_ambient.ogg");
+        Sound::play(m_pRoot.get(), m_pPlayer->skin() + "-death.wav", m_pQor->resources());
         m_pRoot->add(m_pMusic);
         m_pMusic->play();
         // fade out

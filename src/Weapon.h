@@ -21,8 +21,7 @@ class Weapon:
             std::string name,
             Cache<Resource, std::string>* resources
         ){
-            auto cfg = std::make_shared<Meta>(resources->transform("weapon-" + name + ".json"));
-            //cfg->at();
+            //auto cfg = std::make_shared<Meta>(resources->transform("weapons.json"));
         }
         Weapon(
             std::string name,

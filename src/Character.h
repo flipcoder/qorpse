@@ -145,6 +145,9 @@ class Character:
         bool has(std::string id) const {
             return kit::has(m_Items, id);
         }
+        std::string skin() const {
+            return m_Skin;
+        }
         
     private:
 
