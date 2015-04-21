@@ -145,7 +145,7 @@ void QorpseState :: preload()
     m_pTextScroller = make_shared<TextScroller>(
         m_pQor->window(),
         m_pQor->session()->profile(0)->controller().get(),
-        "Press Start",
+        "Press Start 2P",
         m_pQor->resources(),
         TextScroller::TIMED
     );

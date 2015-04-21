@@ -35,7 +35,7 @@ MenuState :: MenuState(
         m_pPipeline->partitioner(),
         m_pCanvas.get(),
         m_pQor->resources(),
-        "Press Start",
+        "Press Start 2P",
         engine->window()->size().y / 30.0f,
         &m_Fade,
         7
