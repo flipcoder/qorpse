@@ -27,7 +27,6 @@ QorpseState :: QorpseState(
 QorpseState :: ~QorpseState()
 {
     m_Ambient = Color::white(); // reset shader
-    Audio::sync();
     m_pRoot = nullptr;
     m_pPipeline->partitioner()->clear();
 }
