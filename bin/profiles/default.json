@@ -3,24 +3,24 @@
     "actor": "grampire",
     "input": {
         "binds": {
-            "left": "left",
-            "right": "right",
-            "up": "up",
-            "down": "down",
-            "z": [
+            "gamepad hat 0": "left",
+            "gamepad hat 1": "right",
+            "gamepad hat 2": "up",
+            "gamepad hat 3": "down",
+            "gamepad 0": [
                 "shoot",
                 "select"
             ],
-            "left shift": "sprint",
-            "x": "strafe",
-            "v": "reload",
-            "c": [
+            "gamepad 12": "sprint",
+            "gamepad 3": "strafe",
+            "gamepad 1": "reload",
+            "gamepad 4": [
                 "next_weapon",
                 "back"
             ],
-            "d": "previous_weapon",
-            "a": "action",
-            "escape": "escape"
+            "gamepad 17": "previous_weapon",
+            "gamepad 20": "action",
+            "gamepad 21": "escape"
         }
     }
 }
