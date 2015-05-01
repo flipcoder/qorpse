@@ -14,7 +14,7 @@
 #include "Qor/Sprite.h"
 #include "CharacterInterface.h"
 //#include "Qor/PlayerInterface3D.h"
-#include "Qor/TextScroller.h"
+#include "TextScroller.h"
 class BasicPartitioner;
 #include "HUD.h"
 #include "Character.h"

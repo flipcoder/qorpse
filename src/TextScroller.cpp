@@ -1,5 +1,4 @@
 #include "TextScroller.h"
-#include "GLTask.h"
 using namespace std;
 using namespace glm;
 

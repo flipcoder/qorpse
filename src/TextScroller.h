@@ -3,15 +3,15 @@
 
 //#include "IRealtime.h"
 //#include "IRenderable.h"
-#include "Node.h"
-#include "Window.h"
-#include "Canvas.h"
-#include "Input.h"
+#include "Qor/Node.h"
+#include "Qor/Window.h"
+#include "Qor/Canvas.h"
+#include "Qor/Input.h"
 #include <queue>
 #include <boost/signals2.hpp>
-#include "kit/freq/animation.h"
-#include "Sound.h"
-#include "Sprite.h"
+#include "Qor/kit/freq/animation.h"
+#include "Qor/Sound.h"
+#include "Qor/Sprite.h"
 
 class TextScroller:
     public Node
