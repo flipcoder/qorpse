@@ -9,7 +9,7 @@
 #include <chrono>
 #include <thread>
 #include "Qor/ScreenFader.h"
-#include "Qor/TextScroller.h"
+#include "TextScroller.h"
 #include "Qor/IPartitioner.h"
 #include "Qor/BasicPartitioner.h"
 using namespace std;
