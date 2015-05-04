@@ -31,7 +31,7 @@ void HUD :: logic_self(Freq::Time t)
         m_Fade = fmod(m_Fade, 1.0f);
         
         cairo->select_font_face(
-            "Press Start",
+            "Press Start 2P",
             Cairo::FONT_SLANT_NORMAL,
             Cairo::FONT_WEIGHT_NORMAL
         );
