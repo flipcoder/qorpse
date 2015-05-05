@@ -172,11 +172,15 @@ void Thing :: setup_player(const std::shared_ptr<Character>& player)
             function<void(Node*,Node*)>(),
             function<void(Node*,Node*)>(),
             [this,playerptr](Node* a, Node* b){ // on enter
-                if(alive() && playerptr->alive())
-                {
-                    playerptr->damage(25);
-                    sound(playerptr->skin() + "-hurt.wav");
-                    kill();
+                if(playerptr->alive()){
+                    if(alive())
+                    {
+                        playerptr->damage(25);
+                        sound(playerptr->skin() + "-hurt.wav");
+                        kill();
+                    }else{
+                        sound("squash.wav");
+                    }
                 }
             }
         );

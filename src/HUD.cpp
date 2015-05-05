@@ -37,7 +37,7 @@ void HUD :: logic_self(Freq::Time t)
         );
         float sz = kit::round_int(m_pWindow->size().y / 24.0f);
         const float shadow = 4.0f;
-        
+
         // text with shadow offset
         for(int i=1; i>=0; --i)
         {

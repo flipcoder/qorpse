@@ -24,6 +24,7 @@ MenuState :: MenuState(
     //m_pInterpreter(engine->interpreter()),
     //m_pScript(make_shared<Interpreter::Context>(engine->interpreter())),
     m_pPipeline(engine->pipeline()),
+    m_pResources(engine->resources()),
     m_pRoot(make_shared<Node>()),
     m_pCanvas(make_shared<Canvas>(
         m_pQor->window()->size().x, m_pQor->window()->size().y
@@ -34,7 +35,7 @@ MenuState :: MenuState(
         &m_MainMenu,
         m_pPipeline->partitioner(),
         m_pCanvas.get(),
-        m_pQor->resources(),
+        m_pResources,
         "Press Start 2P",
         engine->window()->size().y / 30.0f,
         &m_Fade,
@@ -45,12 +46,12 @@ MenuState :: MenuState(
 
 void MenuState :: preload()
 {
-    m_pCamera = make_shared<Camera>(m_pQor->resources(), m_pQor->window());
+    m_pCamera = make_shared<Camera>(m_pResources, m_pQor->window());
     m_pRoot->add(m_pCamera);
     m_pCamera->listen(true);
     
     //try{
-    //    m_pScene = m_pQor->resources()->cache_as<Scene>("menu.json");
+    //    m_pScene = m_pResources->cache_as<Scene>("menu.json");
     //}catch(const std::exception& e){
     //    ERRORf(GENERAL, "scene problem: %s", e.what());
     //}
@@ -68,7 +69,7 @@ void MenuState :: preload()
     logo->add_modifier(make_shared<Wrap>(Prefab::quad_wrap(
         glm::vec2(0.0f, 1.0f), glm::vec2(1.0f, 0.0f)
     )));
-    auto tex = m_pQor->resources()->cache_as<ITexture>("qorpse.png");
+    auto tex = m_pResources->cache_as<ITexture>("qorpse.png");
     logo->material(make_shared<MeshMaterial>(tex));
     logo->move(vec3(
         win->center().x,
@@ -77,17 +78,13 @@ void MenuState :: preload()
     ));
     m_pRoot->add(logo);
 
-    m_pMusic = make_shared<Sound>(
-        m_pQor->resource_path("monsters.ogg"),
-        m_pQor->resources()
-    );
+    m_pMusic = m_pQor->make<Sound>("monsters.ogg");
     m_pRoot->add(m_pMusic);
     m_Ambient.on_change.connect([this](const Color& c){
         int u = m_pPipeline->shader(1)->uniform("Ambient");
         if(u != -1)
             m_pPipeline->shader(1)->uniform(u, vec4(c.vec3(), c.a()));
     });
-    
     
     //if(m_Filename.empty())
     //    m_Filename = m_pQor->args().value_or("mod", "demo");
@@ -130,7 +127,7 @@ void MenuState :: enter()
         vector<shared_ptr<IMeshModifier>>{
             make_shared<Wrap>(Prefab::quad_wrap())
         },
-        make_shared<MeshMaterial>("background.png", m_pQor->resources())
+        make_shared<MeshMaterial>("background.png", m_pResources)
     );
     //auto bg2 = bg->instance();
     bg->position(vec3(0.0f,0.0f,-1.0f));
@@ -156,7 +153,7 @@ void MenuState :: enter()
     //    vector<shared_ptr<IMeshModifier>>{
     //        make_shared<Wrap>(Prefab::quad_wrap())
     //    },
-    //    make_shared<MeshMaterial>("z.png", m_pQor->resources())
+    //    make_shared<MeshMaterial>("z.png", m_pResources)
     //);
     //z->position(vec3(0.0f,0.0f,-1.0f));
     //m_pRoot->add(z);
@@ -192,26 +189,27 @@ void MenuState :: enter()
     });
     
     m_pVolumeText = std::make_shared<string>(string("Global Volume: ") + to_string(
-        m_pQor->resources()->config()->meta("audio")->at<int>("volume")
+        m_pResources->config()->meta("audio")->at<int>("volume")
         ) + "%"
     );
     m_pSoundText = std::make_shared<string>(string("Sound Volume: ") + to_string(
-        m_pQor->resources()->config()->meta("audio")->at<int>("sound-volume")
+        m_pResources->config()->meta("audio")->at<int>("sound-volume")
         ) + "%"
     );
     m_pMusicText = std::make_shared<string>(string("Music Volume: ") + to_string(
-        m_pQor->resources()->config()->meta("audio")->at<int>("music-volume")
+        m_pResources->config()->meta("audio")->at<int>("music-volume")
         ) + "%"
     );
     m_OptionsMenu.options().emplace_back(m_pVolumeText,
         [this]{
         },
         [this](int ofs){
-            int old_v = m_pQor->resources()->config()->meta("audio")->at<int>("volume");
+            int old_v = m_pResources->config()->meta("audio")->at<int>("volume");
             int v = kit::clamp(old_v + ofs * 10, 0, 100);
             if(v!=old_v) {
-                m_pQor->resources()->config()->meta("audio")->set<int>("volume", v);
+                m_pResources->config()->meta("audio")->set<int>("volume", v);
                 *m_pVolumeText = string("Global Volume: ") + to_string(v) + "%";
+                Sound::play(m_pRoot.get(), "scroll.wav", m_pResources);
                 return true;
             }
             return false;
@@ -219,12 +217,13 @@ void MenuState :: enter()
     );
     m_OptionsMenu.options().emplace_back(m_pMusicText,
         [this]{
+            //Sound::play(m_pRoot.get(), "scroll.wav", m_pResources);
         },
         [this](int ofs){
-            int old_v = m_pQor->resources()->config()->meta("audio")->at<int>("music-volume");
+            int old_v = m_pResources->config()->meta("audio")->at<int>("music-volume");
             int v = kit::clamp(old_v + ofs * 10, 0, 100);
             if(v!=old_v) {
-                m_pQor->resources()->config()->meta("audio")->set<int>("music-volume", v);
+                m_pResources->config()->meta("audio")->set<int>("music-volume", v);
                 *m_pMusicText = string("Music Volume: ") + to_string(v) + "%";
                 return true;
             }
@@ -234,11 +233,12 @@ void MenuState :: enter()
         [this]{
         },
         [this](int ofs){
-            int old_v = m_pQor->resources()->config()->meta("audio")->at<int>("sound-volume");
+            int old_v = m_pResources->config()->meta("audio")->at<int>("sound-volume");
             int v = kit::clamp(old_v + ofs * 10, 0, 100);
             if(v!=old_v) {
-                m_pQor->resources()->config()->meta("audio")->set<int>("sound-volume", v);
+                m_pResources->config()->meta("audio")->set<int>("sound-volume", v);
                 *m_pSoundText = string("Sound Volume: ") + to_string(v) + "%";
+                Sound::play(m_pRoot.get(), "scroll.wav", m_pResources);
                 return true;
             }
             return false;
@@ -265,8 +265,8 @@ void MenuState :: enter()
     on_tick.connect(std::move(screen_fader(
         [this](Freq::Time, float fade) {
             m_Fade = fade;
-            float v = m_pQor->resources()->config()->meta("audio")->at<int>("volume") / 100.0f;
-            v *= m_pQor->resources()->config()->meta("audio")->at<int>("music-volume") / 100.0f;
+            float v = m_pResources->config()->meta("audio")->at<int>("volume") / 100.0f;
+            v *= m_pResources->config()->meta("audio")->at<int>("music-volume") / 100.0f;
             m_pMusic->source()->pitch = fade;
             m_pMusic->source()->gain = fade * v;
             m_Ambient = Color(fade);
