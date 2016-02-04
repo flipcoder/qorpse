@@ -27,10 +27,10 @@ MenuState :: MenuState(
     m_pResources(engine->resources()),
     m_pRoot(make_shared<Node>()),
     m_pCanvas(make_shared<Canvas>(
-        m_pQor->window()->size().x, m_pQor->window()->size().y
+        engine->window()->size().x, engine->window()->size().y
     )),
     m_pMenuGUI(make_shared<MenuGUI>(
-        m_pQor->session()->profile(0)->controller().get(),
+        engine->session()->profile(0)->controller().get(),
         &m_MenuContext,
         &m_MainMenu,
         m_pPipeline->partitioner(),
@@ -51,7 +51,7 @@ void MenuState :: preload()
     m_pCamera->listen(true);
     
     //try{
-    //    m_pScene = m_pResources->cache_as<Scene>("menu.json");
+    //    m_pScene = m_pResources->cache_cast<Scene>("menu.json");
     //}catch(const std::exception& e){
     //    ERRORf(GENERAL, "scene problem: %s", e.what());
     //}
@@ -69,7 +69,7 @@ void MenuState :: preload()
     logo->add_modifier(make_shared<Wrap>(Prefab::quad_wrap(
         glm::vec2(0.0f, 1.0f), glm::vec2(1.0f, 0.0f)
     )));
-    auto tex = m_pResources->cache_as<ITexture>("qorpse.png");
+    auto tex = m_pResources->cache_cast<ITexture>("qorpse.png");
     logo->material(make_shared<MeshMaterial>(tex));
     logo->move(vec3(
         win->center().x,
@@ -169,13 +169,13 @@ void MenuState :: enter()
     //m_MainMenu.name("Qorpse");
     m_MainMenu.options().emplace_back("New Game", [this]{
         m_pDone = make_shared<std::function<void()>>([this]{
-            m_pQor->change_state(m_pQor->states().class_id("game"));
+            m_pQor->change_state("game");
         });
         m_pMenuGUI->pause();
     });
     m_MainMenu.options().emplace_back("Continue", [this]{
         m_pDone = make_shared<std::function<void()>>([this]{
-            m_pQor->change_state(m_pQor->states().class_id("game"));
+            m_pQor->change_state("game");
         });
         m_pMenuGUI->pause();
     });

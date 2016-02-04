@@ -146,7 +146,7 @@ void TextScroller :: load_portrait()
         ) * Pango::SCALE);
         
         //m_pPortraitNode->swap_modifier<MeshMaterial>(
-        //    m_pResources->cache_as<ITexture>(
+        //    m_pResources->cache_cast<ITexture>(
         //        msg.portrait
         //    );
         //);
