@@ -34,6 +34,7 @@ solution("qorpse")
             "boost_thread",
             "boost_filesystem",
             "boost_python",
+            "boost_regex",
             "boost_coroutine",
             "jsoncpp"
         }
