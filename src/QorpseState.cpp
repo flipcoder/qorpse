@@ -161,7 +161,7 @@ void QorpseState :: preload()
     });
     
     auto bg = make_shared<Mesh>(
-        make_shared<MeshGeometry>(Prefab::quad(vec2(sw, sh))),
+        make_shared<MeshGeometry>(Prefab::quad(vec2(sw, sh), vec2(0.0, 0.0))),
         vector<shared_ptr<IMeshModifier>>{
             make_shared<Wrap>(Prefab::quad_wrap())
         },
