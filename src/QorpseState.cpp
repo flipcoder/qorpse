@@ -279,7 +279,7 @@ void QorpseState :: logic(Freq::Time t)
         m_pQor->quit();
     
     m_pRoot->logic(t);
-    m_pPipeline->logic(t);
+    //m_pPipeline->logic(t);
 }
 
 void QorpseState :: render() const
