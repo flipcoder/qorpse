@@ -45,9 +45,10 @@ void HUD :: logic_self(Freq::Time t)
             Color c = Color::white();
             if(i == 1)
                 c = Color::black();
-            cairo->set_source_rgba(c.r(), c.g(), c.b(), c.a());
+            //cairo->set_source_rgba(c.r(), c.g(), c.b(), c.a());
             m_pCanvas->text(
                 boost::to_upper_copy(ch->weapon()->name()) + " " + to_string(+ ch->clip()) + " / " + to_string(ch->ammo()),
+                c,
                 vec2(sz/2.0f - i*shadow, m_pWindow->size().y - sz/2.0f + i*shadow)
             );
             if(i == 0){
@@ -57,13 +58,14 @@ void HUD :: logic_self(Freq::Time t)
                     ch->hp_percent() / 100.0f
                 );
             }
-            cairo->set_source_rgba(c.r(), c.g(), c.b(), c.a());
+            //cairo->set_source_rgba(c.r(), c.g(), c.b(), c.a());
             cairo->set_font_size(
                 sz + (1.0f - ch->hp_percent() / 100.0f) * 4.0f * (1.0f+sin(m_Fade * K_TAU)
                 //+ sz * (1.0f - ch->hp_percent() / 100.0f)
             ));
             m_pCanvas->text(
                 to_string(ch->hp_percent()) + "%",
+                c,
                 vec2(m_pWindow->size().x - sz/2.0f - i*shadow, m_pWindow->size().y - sz/2.0f + i*shadow),
                 Canvas::Align::RIGHT
             );
