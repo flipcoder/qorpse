@@ -45,11 +45,11 @@ solution("qorpse")
         excludes {
             "src/Qor/Main.cpp",
             "src/Qor/Info.cpp",
-
             -- no physics:
                 "src/Qor/Physics.*",
-                "src/Qor/DemoState.*",
-            
+            -- no net:
+                "src/Qor/Net.*",
+            "src/Qor/DemoState.*",
             "src/Qor/tests/**",
             "src/Qor/scripts/**",
             "src/Qor/addons/**",
