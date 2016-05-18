@@ -25,7 +25,7 @@ int main(int argc, const char** argv)
     //args.set("basic_shader","fog");
     //args.set("no_loading_fade","true");
     
-    Texture::DEFAULT_FLAGS = Texture::TRANSPARENT | Texture::MIPMAP;
+    Texture::DEFAULT_FLAGS = Texture::TRANS | Texture::MIPMAP;
     
 #ifndef DEBUG
     try{

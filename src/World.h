@@ -62,6 +62,8 @@ class World:
         
         void setup_camera(Camera* camera);
         void sound(Node* n, std::string fn);
+
+        //virtual void logic(Freq::Time t) override {}
         
     private:
 

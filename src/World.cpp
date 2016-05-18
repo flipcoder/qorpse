@@ -21,7 +21,6 @@ World :: World(
     // load first map
     m_pMap = m_pQor->make<TileMap>(cfg->meta("maps")->at<string>(0) + ".tmx");
     
-    //m_pMap = m_pQor->make<TileMap>("test.tmx");
     if(m_pMap)
     {
         add(m_pMap);

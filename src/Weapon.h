@@ -59,6 +59,8 @@ class Weapon:
         {
             m_FireDelay = Freq::Alarm(m_Timeline.get());
             m_ReloadDelay = Freq::Alarm(m_Timeline.get());
+            m_FireDelay.set(Freq::Time::ms(0));
+            m_ReloadDelay.set(Freq::Time::ms(0));
         }
         virtual ~Weapon() {}
 
