@@ -7,3 +7,14 @@ Retro horror shooter written in C++11.
 
 [![Video 2](http://img.youtube.com/vi/3S3Bc8S_yjg/0.jpg)](https://www.youtube.com/watch?v=3S3Bc8S_yjg)
 
+## Credits ##
+
+### Programming
+- [Grady O'Connell](http://github.com/flipcoder) (flipcoder@gmail.com)
+
+### Graphics
+- [Mark "Alfred" McDaniel](http://github.com/AlfredAnonymous) (alfred523@gmail.com)
+
+### Music & Sound
+- [Grady O'Connell](http://github.com/flipcoder) (flipcoder@gmail.com)
+
