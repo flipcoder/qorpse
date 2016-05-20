@@ -2,6 +2,7 @@
 #include "Thing.h"
 #include "Qor/Sound.h"
 #include <algorithm>
+#include <memory>
 using namespace std;
 using namespace glm;
 namespace _ = std::placeholders;
@@ -32,8 +33,11 @@ World :: World(
         for(auto&& layers: layer_types)
         for(auto&& layer: *layers)
         {
-            for(auto&& tile: *layer)
+            for(auto&& tile_ptr: layer->all_descendants())
             {
+                if(not tile_ptr)
+                    continue;
+                auto tile = tile_ptr->as_node();
                 // read object properties and replace
                 auto obj = std::dynamic_pointer_cast<MapTile>(tile);
                 if(obj)
@@ -175,13 +179,14 @@ World :: World(
         );
         
         // TODO: bake each map layer independently
-        for(auto&& layers: layer_types)
-            for(auto&& layer: *layers)
-            {
-                Mesh::bake(layer, m_pQor->pipeline(), [](Node* n){
-                    return n->visible() && n->config()->has("static");
-                });
-            }
+        //for(auto&& layers: layer_types)
+        //    for(auto&& layer: *layers)
+        //    {
+        //        Mesh::bake(layer, m_pQor->pipeline(), [](Node* n){
+        //            LOG("baking")
+        //            return n->visible() && n->config()->has("static");
+        //        });
+        //    }
     }
 }
 
@@ -242,7 +247,7 @@ void World :: setup_player(std::shared_ptr<Character> player)
         n->name("head_mask");
         n->box() = Box(
             vec3(0.4f, 0.0f, 1.0f - K_EPSILON * 5.0f),
-            vec3(0.6f, 0.1f, 1.8f - K_EPSILON * 5.0f)
+            vec3(0.6f, 0.1f, 10.0f - K_EPSILON * 5.0f)
         );
         player->mesh()->add(n);
         m_pPartitioner->register_object(n, CHARACTER_HEAD);
@@ -417,10 +422,7 @@ void World :: sound(Node* n, std::string fn)
     snd->collapse(Space::WORLD);
     snd->play();
     auto sndptr = snd.get();
-    snd->on_tick.connect([sndptr](Freq::Time t){
-        if(not sndptr->source()->playing())
-            sndptr->detach();
-    });
+    snd->detach_on_done();
 }
 
 void World :: cb_bullet_to_static(Node* a, Node* b)

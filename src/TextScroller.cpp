@@ -56,59 +56,61 @@ void TextScroller :: logic_self(Freq::Time t)
     m_Timer.logic(t);
     m_AutoSkip.poll();
 
-    // clear black
-    auto cairo = m_pCanvas->context();
-    cairo->set_source_rgb(0.0f, 0.0f, 0.0f);
-    cairo->paint();
-    
-    // clear transparent
-    auto ctext = m_pTextCanvas->context();
-    ctext->save();
-    ctext->set_operator(Cairo::OPERATOR_SOURCE);
-    //ctext->set_source_rgba(1.0f, 0.0f, 1.0f, 1.0f);
-    ctext->set_source_rgba(0.0f, 0.0f, 0.0f, 1.0f);
-    ctext->paint();
-    ctext->restore();
+    if(m_Drop.get() > m_fInactiveY + K_EPSILON) {
+        // clear black
+        auto cairo = m_pCanvas->context();
+        cairo->set_source_rgb(0.0f, 0.0f, 0.0f);
+        cairo->paint();
+        
+        // clear transparent
+        auto ctext = m_pTextCanvas->context();
+        ctext->save();
+        ctext->set_operator(Cairo::OPERATOR_SOURCE);
+        //ctext->set_source_rgba(1.0f, 0.0f, 1.0f, 1.0f);
+        ctext->set_source_rgba(0.0f, 0.0f, 0.0f, 1.0f);
+        ctext->paint();
+        ctext->restore();
 
-    if(m_Drop.elapsed() && !m_Messages.empty()) {
-        if(m_AutoSkip.fraction() < 0.25f){
-            if(not m_pScrollSound->source()->playing())
-                m_pScrollSound->play();
-        }else
-            m_pScrollSound->source()->stop();
-        
-        auto layout = m_pTextCanvas->layout();
-        layout->set_wrap(Pango::WRAP_WORD);
-        
-        layout->set_text(m_Messages.front().msg.substr(
-            0,
-            kit::saturate(
-                m_AutoSkip.fraction()*4.0f
-            ) * m_Messages.front().msg.size()
-        ));
-        auto fontdesc = Pango::FontDescription((
-            boost::format("%s %s") % m_Font %
-                kit::round_int(m_pCanvas->size().y / 6.0f)
-        ).str());
-        layout->set_font_description(fontdesc);
-        ctext->set_source_rgba(1.0, 1.0, 1.0, 0.75);
-        layout->show_in_cairo_context(ctext);
-    }
-    
-    if(!m_Messages.empty())
-    {
-        bool advance = false;
-        if(m_Mode ==  WAIT)
-            advance = m_pController->button("select").consume();
-        //else if(m_Mode ==  TIMED)
-        //    advance = m_AutoSkip.elapsed();
+        if(m_Drop.elapsed() && !m_Messages.empty()) {
+            if(m_AutoSkip.fraction() < 0.25f){
+                if(not m_pScrollSound->source()->playing())
+                    m_pScrollSound->play();
+            }else
+                m_pScrollSound->source()->stop();
             
-        if(advance)
-            next_page();
+            auto layout = m_pTextCanvas->layout();
+            layout->set_wrap(Pango::WRAP_WORD);
+            
+            layout->set_text(m_Messages.front().msg.substr(
+                0,
+                kit::saturate(
+                    m_AutoSkip.fraction()*4.0f
+                ) * m_Messages.front().msg.size()
+            ));
+            auto fontdesc = Pango::FontDescription((
+                boost::format("%s %s") % m_Font %
+                    kit::round_int(m_pCanvas->size().y / 6.0f)
+            ).str());
+            layout->set_font_description(fontdesc);
+            ctext->set_source_rgba(1.0, 1.0, 1.0, 0.75);
+            layout->show_in_cairo_context(ctext);
+        }
+        
+        if(!m_Messages.empty())
+        {
+            bool advance = false;
+            if(m_Mode ==  WAIT)
+                advance = m_pController->button("select").consume();
+            //else if(m_Mode ==  TIMED)
+            //    advance = m_AutoSkip.elapsed();
+                
+            if(advance)
+                next_page();
+        }
+        position(glm::vec3(0.0f, m_Drop.get(), position().z));
+        m_pCanvas->dirty(false);
+        m_pTextCanvas->dirty(true);
     }
-    position(glm::vec3(0.0f, m_Drop.get(), position().z));
-    m_pCanvas->dirty(false);
-    m_pTextCanvas->dirty(true);
 }
 
 
