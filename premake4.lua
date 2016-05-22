@@ -9,7 +9,7 @@ solution("qorpse")
     configuration "Release"
         defines { "NDEBUG" }
         --optimize "speed"
-        flags { "OptimizeSpeed" }
+        flags { "OptimizeSpeed", "FloatFast", "SSE2" }
         targetname("qorpse_dist")
 
     project("qorpse")

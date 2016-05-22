@@ -15,7 +15,7 @@ HUD :: HUD(Window* win, const std::shared_ptr<Character>& character):
 
 void HUD :: logic_self(Freq::Time t)
 {
-    //if(m_Dirty)
+    if(m_Dirty)
     {
         auto cairo = m_pCanvas->context();
         cairo->save();
@@ -26,9 +26,11 @@ void HUD :: logic_self(Freq::Time t)
         
         auto ch = m_pCharacter.lock();
         if(!ch) return;
+
+        m_Fade = 0.0f;
         
-        m_Fade += t.s() * 2.5f *(1.0f-ch->hp_percent()/100.0f);
-        m_Fade = fmod(m_Fade, 1.0f);
+        //m_Fade += t.s() * 2.5f *(1.0f-ch->hp_percent()/100.0f);
+        //m_Fade = fmod(m_Fade, 1.0f);
         
         cairo->select_font_face(
             "Press Start 2P",
@@ -71,10 +73,9 @@ void HUD :: logic_self(Freq::Time t)
             );
         }
 
-        //m_Dirty = false;
+        m_Dirty = false;
         m_pCanvas->dirty(true);
     }
-    //m_Dirty = false;
 }
 
 void HUD :: setup_character()
@@ -82,13 +83,14 @@ void HUD :: setup_character()
     auto ch = m_pCharacter.lock();
     if(!ch) return;
 
-    //auto dirty_cb = [this]{
-    //    m_Dirty = true;
-    //};
+    auto _this = this;
+    auto dirty_cb = [_this](const int&){
+        _this->m_Dirty = true;
+    };
 
     // setup change signals
     //m_pWindow->on_resize(dirty_cb);
-    //ch->on_hp_change(dirty_cb);
-    //ch->on_ammo_change(dirty_cb);
+    m_HPChange = ch->on_hp_change(dirty_cb);
+    m_AmmoChange = ch->on_ammo_change(dirty_cb);
 }
 

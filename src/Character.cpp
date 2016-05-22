@@ -42,13 +42,13 @@ Character :: Character(
         );
     }
 
-    //m_Weapon.on_change.connect([this](const int&){
-    //    if(m_Weapons.empty()){
-    //        m_Ammo = 0;
-    //        return;
-    //    }
-    //    m_Ammo = m_Weapons[m_Weapon].ammo();
-    //});
+    m_Weapon.on_change.connect([this](const int&){
+        if(m_Weapons.empty()){
+            m_Ammo = 0;
+            return;
+        }
+        m_Ammo = m_Weapons[m_Weapon].ammo();
+    });
     set_states({"stand","down"});
     m_Dead.on_change.connect([this](const bool& b){
         if(b)

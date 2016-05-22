@@ -21,6 +21,8 @@ class HUD:
         std::shared_ptr<Character> target() {
             return m_pCharacter.lock();
         }
+
+        void dirty(bool b) { m_Dirty = true; }
         
     private:
 
@@ -35,7 +37,7 @@ class HUD:
         boost::signals2::scoped_connection m_HPChange;
         boost::signals2::scoped_connection m_AmmoChange;
 
-        //bool m_Dirty = false;
+        bool m_Dirty = true;
 };
 
 #endif
