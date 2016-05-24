@@ -78,6 +78,11 @@ void Thing :: init_thing()
     
     if(is_monster())
     {
+        TRY(m_pConfig->merge(make_shared<Meta>(
+            m_pResources->transform(m_Identity+".json")
+        )));
+        m_HP = m_pConfig->at<int>("hp",1);
+        LOGf("hp: %s", m_HP);
         m_pSprite = make_shared<Sprite>(
             m_pResources->transform(m_Identity+".json"),
             m_pResources
@@ -338,6 +343,7 @@ void Thing :: gib(Node* bullet)
     auto gib = make_shared<Sprite>("gib"+to_string(gib_idx+1)+".png", m_pResources);
     auto dir = Angle::degrees(1.0f * (std::rand() % 360)).vector();
     add(gib);
+    gib->move(glm::vec3(0.0f, 0.0f, 0.1f));
     gib->velocity(glm::vec3(dir, 0.0f) * 15.0f);
     auto life = make_shared<float>(0.25f);
     auto gibptr = gib.get();
@@ -362,10 +368,10 @@ void Thing :: cb_to_bullet(Node* thing_node, Node* bullet_node)
         
         if(thing->damage(bullet->config()->at("damage",1)))
         {
-            if(not bullet->config()->at("penetration",false))
-                bullet->on_tick.connect([bullet](Freq::Time){
-                    bullet->detach();
-                });
+            //if(not bullet->config()->at("penetration",false))
+            bullet->on_tick.connect([bullet](Freq::Time){
+                bullet->detach();
+            });
         }
     }
 }
@@ -373,5 +379,17 @@ void Thing :: cb_to_bullet(Node* thing_node, Node* bullet_node)
 World* Thing :: world()
 {
     return m_pWorld;
+}
+
+bool Thing :: damage(int dmg)
+{
+    if(m_HP <= 0 || dmg < 0)
+        return false;
+    m_HP = std::max(m_HP-dmg, 0);
+    if(m_HP <= 0){
+        m_Dying = true;
+        velocity(glm::vec3(0.0f));
+    }
+    return true;
 }
 

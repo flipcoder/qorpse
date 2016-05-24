@@ -116,16 +116,7 @@ class Thing:
         // ignore m_Dying when check alive
         bool alive() const { return not m_Dead; }
 
-        bool damage(int dmg) {
-            if(m_HP <= 0 || dmg < 0)
-                return false;
-            m_HP = std::max(m_HP-dmg, 0);
-            if(m_HP <= 0){
-                m_Dying = true;
-                velocity(glm::vec3(0.0f));
-            }
-            return true;
-        }
+        bool damage(int dmg);
         
         void gib(Node* bullet);
 
